@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visitors</title>
+  <style>
+    /* Default styles */
+    body {
+      background-color: #ffffff;
+      color: #0e0e0e;
+      font-family: Helvetica, sans-serif;
+      margin: 10px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      width: 40%;
+
+    }
+
+    th, td {
+      border: 1px solid #0e0e0e;
+      padding: 5px;
+      text-align: center;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgb(0, 0, 0);
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    /* High-contrast styles */
+    .high-contrast {
+      background-color: rgb(23, 22, 30);
+      color: yellow;
+    }
+
+    .high-contrast table {
+      border-color: white;
+    }
+
+    .high-contrast footer {
+      background-color: yellow;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Monthly Visitors</h1>
+  <div id="visitor-table-container"></div>
+
+  <footer id="cookie-banner">
+    <p>We use cookies to improve your experience. <a href="#" id="accept-cookies">Accept Cookies</a></p>
+  </footer>
+
+  <button id="toggle-contrast">Reading Assistance</button>
+
+  <script>
+    // Visitor Data Object
+    const visitorData = {
+      April: 100,
+      May: 322,
+      June: 289,
+      July: 200,
+      August: 283,
+      September: 210
+    };
+
+    // Create Table Dynamically
+    function generateVisitorTable(data) {
+      const tableContainer = document.getElementById('visitor-table-container');
+      tableContainer.innerHTML = ''; // Clear existing content
+
+      const table = document.createElement('table');
+      const headerRow = document.createElement('tr');
+      const monthHeader = document.createElement('th');
+      const visitorsHeader = document.createElement('th');
+
+      monthHeader.textContent = 'Month';
+      visitorsHeader.textContent = 'Visitors';
+
+      headerRow.appendChild(monthHeader);
+      headerRow.appendChild(visitorsHeader);
+      table.appendChild(headerRow);
+
+      for (const [month, visitors] of Object.entries(data)) {
+        const row = document.createElement('tr');
+        const monthCell = document.createElement('td');
+        const visitorsCell = document.createElement('td');
+
+        monthCell.textContent = month;
+        visitorsCell.textContent = visitors;
+
+        row.appendChild(monthCell);
+        row.appendChild(visitorsCell);
+        table.appendChild(row);
+      }
+
+      tableContainer.appendChild(table);
+    }
+
+    // GDPR Banner Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptCookiesBtn = document.getElementById('accept-cookies');
+
+    acceptCookiesBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      cookieBanner.innerHTML = `
+        <p>Cookies were accepted. <a href="#" id="revoke-cookies">Would you like to revoke?</a></p>
+      `;
+
+      document.getElementById('revoke-cookies').addEventListener('click', (e) => {
+        e.preventDefault();
+        cookieBanner.innerHTML = `
+          <p>We use cookies to improve your experience. <a href="#" id="accept-cookies">Accept Cookies</a></p>
+        `;
+        document.getElementById('accept-cookies').addEventListener('click', (e) => {
+          e.preventDefault();
+          cookieBanner.innerHTML = `
+            <p>Cookies were accepted. <a href="#" id="revoke-cookies">Would you like to revoke?</a></p>
+          `;
+        });
+      });
+    });
+
+    // Toggle High-Contrast Mode
+    const toggleContrastBtn = document.getElementById('toggle-contrast');
+    toggleContrastBtn.addEventListener('click', toggleContrast);
+
+    function toggleContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+
+    // Keyboard Shortcut for High-Contrast Mode (Ctrl + A)
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'a') {
+        e.preventDefault();
+        toggleContrast();
+      }
+    });
+
+    // Initialize Table
+    generateVisitorTable(visitorData);
+  </script>
+
+</body>
+</html>
