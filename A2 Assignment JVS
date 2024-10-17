@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visitors</title>
   <style>
-    /* Default styles */
+    /* Default */
     body {
       background-color: #ffffff;
       color: #0e0e0e;
@@ -40,7 +40,7 @@
       padding: 10px;
     }
 
-    /* High-contrast styles */
+    /* High-contrast */
     .high-contrast {
       background-color: rgb(23, 22, 30);
       color: yellow;
@@ -68,7 +68,7 @@
   <button id="toggle-contrast">Reading Assistance</button>
 
   <script>
-    // Visitor Data Object
+
     const visitorData = {
       April: 100,
       May: 322,
@@ -78,7 +78,6 @@
       September: 210
     };
 
-    // Create Table Dynamically
     function generateVisitorTable(data) {
       const tableContainer = document.getElementById('visitor-table-container');
       tableContainer.innerHTML = ''; // Clear existing content
@@ -111,7 +110,6 @@
       tableContainer.appendChild(table);
     }
 
-    // GDPR Banner Logic
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptCookiesBtn = document.getElementById('accept-cookies');
 
@@ -135,7 +133,7 @@
       });
     });
 
-    // Toggle High-Contrast Mode
+
     const toggleContrastBtn = document.getElementById('toggle-contrast');
     toggleContrastBtn.addEventListener('click', toggleContrast);
 
@@ -143,7 +141,7 @@
       document.body.classList.toggle('high-contrast');
     }
 
-    // Keyboard Shortcut for High-Contrast Mode (Ctrl + A)
+  
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.key === 'a') {
         e.preventDefault();
@@ -151,7 +149,7 @@
       }
     });
 
-    // Initialize Table
+  
     generateVisitorTable(visitorData);
   </script>
 
